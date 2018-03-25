@@ -129,7 +129,7 @@ export class PieOnlyOneComponent extends BaseChartComponent {
 
   getSeries(): any[] {
     const total = this.designatedTotal ? this.designatedTotal : this.getTotal();
-
+    console.log('---int--');
     return this.data.map((d) => {
       
       const baselineLabelHeight = 20;
