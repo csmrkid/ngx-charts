@@ -20,11 +20,14 @@ export class BaseChartComponent implements OnChanges, AfterViewInit, OnDestroy {
   @Input() schemeType: string = 'ordinal';
   @Input() customColors: any;
   @Input() animations: boolean = true;
+  @Input() transferLocation: number[];
 
   @Output() select = new EventEmitter();
 
   width: number;
   height: number;
+  transferX: number;
+  transferY: number;
   resizeSubscription: any;
   visibilityObserver: VisibilityObserver;
 
@@ -70,11 +73,19 @@ export class BaseChartComponent implements OnChanges, AfterViewInit, OnDestroy {
       }
     }
 
+    if(this.transferLocation) {
+      this.transferX = this.transferLocation[0];
+      this.transferY = this.transferY[0];
+    } else {
+      this.transferX = 0;
+      this.transferY = 0;
+    }
+
     // default values if width or height are 0 or undefined
     if (!this.width) {
       this.width = 600;
     }
-
+    
     if (!this.height) {
       this.height = 400;
     }

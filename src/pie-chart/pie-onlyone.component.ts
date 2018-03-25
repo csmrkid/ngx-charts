@@ -150,8 +150,8 @@ export class PieOnlyOneComponent extends BaseChartComponent {
         }
       };
 
-      const xPos = d.x + (d.width - padding) / 2;
-      const yPos = d.y + (d.height - baselineLabelHeight) / 2;
+      const xPos = (d.x + (d.width - padding) / 2) + this.transferX;
+      const yPos = (d.y + (d.height - baselineLabelHeight) / 2) + this.transferY;
       return {
         transform: `translate(${xPos}, ${yPos})`,
         colors,

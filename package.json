@@ -1,6 +1,6 @@
 {
     "name": "@rayyen/its-angular-charts",
-    "version": "7.2.0",
+    "version": "7.2.3",
     "description": "Modify from @swimlane/ngx-chart ,Declarative Charting Framework for Angular2 and beyond!",
     "main": "release/index.js",
     "typings": "release/index.d.ts",
