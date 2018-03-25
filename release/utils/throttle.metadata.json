@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 [{"__symbolic":"module","version":4,"metadata":{"throttle":{"__symbolic":"function"},"throttleable":{"__symbolic":"function","parameters":["duration","options"],"value":{"__symbolic":"error","message":"Lambda not supported","line":62,"character":9}}}}]
+=======
+[{"__symbolic":"module","version":4,"metadata":{"throttle":{"__symbolic":"function"},"throttleable":{"__symbolic":"function","parameters":["duration","options"],"value":{"__symbolic":"error","message":"Function call not supported","line":62,"character":9}}}}]
+>>>>>>> b184a3240a7cd9502ffbcfda3a89718fa2d7a66a

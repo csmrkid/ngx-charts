@@ -51,7 +51,10 @@ var CountUpDirective = /** @class */ (function () {
         },
         set: function (val) {
             this._countTo = parseFloat(val);
+<<<<<<< HEAD
             console.log('this.count_to ' + this._countTo);
+=======
+>>>>>>> b184a3240a7cd9502ffbcfda3a89718fa2d7a66a
             this.start();
         },
         enumerable: true,

@@ -8,8 +8,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { ElementRef, NgZone, ChangeDetectorRef, Component, Input, Output, EventEmitter } from '@angular/core';
+<<<<<<< HEAD
 import { fromEvent as observableFromEvent } from 'rxjs/observable/fromEvent';
 import { debounceTime } from 'rxjs/operators/debounceTime';
+=======
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/debounceTime';
+>>>>>>> b184a3240a7cd9502ffbcfda3a89718fa2d7a66a
 import { VisibilityObserver } from '../utils';
 var BaseChartComponent = /** @class */ (function () {
     function BaseChartComponent(chartElement, zone, cd) {
@@ -107,8 +113,13 @@ var BaseChartComponent = /** @class */ (function () {
     };
     BaseChartComponent.prototype.bindWindowResizeEvent = function () {
         var _this = this;
+<<<<<<< HEAD
         var source = observableFromEvent(window, 'resize', null, null);
         var subscription = source.pipe(debounceTime(200)).subscribe(function (e) {
+=======
+        var source = Observable.fromEvent(window, 'resize', null, null);
+        var subscription = source.debounceTime(200).subscribe(function (e) {
+>>>>>>> b184a3240a7cd9502ffbcfda3a89718fa2d7a66a
             _this.update();
             if (_this.cd) {
                 _this.cd.markForCheck();

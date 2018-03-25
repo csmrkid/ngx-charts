@@ -1,20 +1,27 @@
-var __extends = (this && this.__extends) || (function () {
+var __extends = (this && this.__extends) || (function() {
     var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
+        ({ __proto__: [] }
+            instanceof Array && function(d, b) { d.__proto__ = b; }) ||
+        function(d, b) { for (var p in b)
+                if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function(d, b) {
         extendStatics(d, b);
+
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
+    var c = arguments.length,
+        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
+        d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    else
+        for (var i = decorators.length - 1; i >= 0; i--)
+            if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
+var __metadata = (this && this.__metadata) || function(k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, HostListener, ChangeDetectionStrategy, ContentChild, TemplateRef } from '@angular/core';
@@ -24,8 +31,9 @@ import { calculateViewDimensions } from '../common/view-dimensions.helper';
 import { ColorHelper } from '../common/color.helper';
 import { BaseChartComponent } from '../common/base-chart.component';
 import { id } from '../utils/id';
-var AreaChartComponent = /** @class */ (function (_super) {
+var AreaChartComponent = /** @class */ (function(_super) {
     __extends(AreaChartComponent, _super);
+
     function AreaChartComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.legendTitle = 'Legend';
@@ -43,7 +51,7 @@ var AreaChartComponent = /** @class */ (function (_super) {
         _this.timelinePadding = 10;
         return _this;
     }
-    AreaChartComponent.prototype.update = function () {
+    AreaChartComponent.prototype.update = function() {
         _super.prototype.update.call(this);
         this.dims = calculateViewDimensions({
             width: this.width,
@@ -76,7 +84,7 @@ var AreaChartComponent = /** @class */ (function (_super) {
         this.clipPathId = 'clip' + id().toString();
         this.clipPath = "url(#" + this.clipPathId + ")";
     };
-    AreaChartComponent.prototype.updateTimeline = function () {
+    AreaChartComponent.prototype.updateTimeline = function() {
         if (this.timeline) {
             this.timelineWidth = this.dims.width;
             this.timelineXDomain = this.getXDomain();
@@ -85,7 +93,7 @@ var AreaChartComponent = /** @class */ (function (_super) {
             this.timelineTransform = "translate(" + this.dims.xOffset + ", " + -this.margin[2] + ")";
         }
     };
-    AreaChartComponent.prototype.getXDomain = function () {
+    AreaChartComponent.prototype.getXDomain = function() {
         var values = [];
         for (var _i = 0, _a = this.results; _i < _a.length; _i++) {
             var results = _a[_i];
@@ -99,21 +107,21 @@ var AreaChartComponent = /** @class */ (function (_super) {
         this.scaleType = this.getScaleType(values);
         var domain = [];
         if (this.scaleType === 'linear') {
-            values = values.map(function (v) { return Number(v); });
+            values = values.map(function(v) { return Number(v); });
         }
         var min;
         var max;
         if (this.scaleType === 'time' || this.scaleType === 'linear') {
-            min = this.xScaleMin
-                ? this.xScaleMin
-                : Math.min.apply(Math, values);
-            max = this.xScaleMax
-                ? this.xScaleMax
-                : Math.max.apply(Math, values);
+            min = this.xScaleMin ?
+                this.xScaleMin :
+                Math.min.apply(Math, values);
+            max = this.xScaleMax ?
+                this.xScaleMax :
+                Math.max.apply(Math, values);
         }
         if (this.scaleType === 'time') {
             domain = [new Date(min), new Date(max)];
-            this.xSet = values.slice().sort(function (a, b) {
+            this.xSet = values.slice().sort(function(a, b) {
                 var aDate = a.getTime();
                 var bDate = b.getTime();
                 if (aDate > bDate)
@@ -122,19 +130,17 @@ var AreaChartComponent = /** @class */ (function (_super) {
                     return -1;
                 return 0;
             });
-        }
-        else if (this.scaleType === 'linear') {
+        } else if (this.scaleType === 'linear') {
             domain = [min, max];
             // Use compare function to sort numbers numerically
-            this.xSet = values.slice().sort(function (a, b) { return (a - b); });
-        }
-        else {
+            this.xSet = values.slice().sort(function(a, b) { return (a - b); });
+        } else {
             domain = values;
             this.xSet = values;
         }
         return domain;
     };
-    AreaChartComponent.prototype.getYDomain = function () {
+    AreaChartComponent.prototype.getYDomain = function() {
         var domain = [];
         for (var _i = 0, _a = this.results; _i < _a.length; _i++) {
             var results = _a[_i];
@@ -149,26 +155,24 @@ var AreaChartComponent = /** @class */ (function (_super) {
         if (!this.autoScale) {
             values.push(0);
         }
-        var min = this.yScaleMin
-            ? this.yScaleMin
-            : Math.min.apply(Math, values);
-        var max = this.yScaleMax
-            ? this.yScaleMax
-            : Math.max.apply(Math, values);
+        var min = this.yScaleMin ?
+            this.yScaleMin :
+            Math.min.apply(Math, values);
+        var max = this.yScaleMax ?
+            this.yScaleMax :
+            Math.max.apply(Math, values);
         return [min, max];
     };
-    AreaChartComponent.prototype.getSeriesDomain = function () {
-        return this.results.map(function (d) { return d.name; });
+    AreaChartComponent.prototype.getSeriesDomain = function() {
+        return this.results.map(function(d) { return d.name; });
     };
-    AreaChartComponent.prototype.getXScale = function (domain, width) {
+    AreaChartComponent.prototype.getXScale = function(domain, width) {
         var scale;
         if (this.scaleType === 'time') {
             scale = scaleTime();
-        }
-        else if (this.scaleType === 'linear') {
+        } else if (this.scaleType === 'linear') {
             scale = scaleLinear();
-        }
-        else if (this.scaleType === 'ordinal') {
+        } else if (this.scaleType === 'ordinal') {
             scale = scalePoint()
                 .padding(0.1);
         }
@@ -176,13 +180,13 @@ var AreaChartComponent = /** @class */ (function (_super) {
             .domain(domain);
         return this.roundDomains ? scale.nice() : scale;
     };
-    AreaChartComponent.prototype.getYScale = function (domain, height) {
+    AreaChartComponent.prototype.getYScale = function(domain, height) {
         var scale = scaleLinear()
             .range([height, 0])
             .domain(domain);
         return this.roundDomains ? scale.nice() : scale;
     };
-    AreaChartComponent.prototype.getScaleType = function (values) {
+    AreaChartComponent.prototype.getScaleType = function(values) {
         var date = true;
         var num = true;
         for (var _i = 0, values_1 = values; _i < values_1.length; _i++) {
@@ -202,45 +206,44 @@ var AreaChartComponent = /** @class */ (function (_super) {
         }
         return 'ordinal';
     };
-    AreaChartComponent.prototype.isDate = function (value) {
+    AreaChartComponent.prototype.isDate = function(value) {
         if (value instanceof Date) {
             return true;
         }
         return false;
     };
-    AreaChartComponent.prototype.updateDomain = function (domain) {
+    AreaChartComponent.prototype.updateDomain = function(domain) {
         this.filteredDomain = domain;
         this.xDomain = this.filteredDomain;
         this.xScale = this.getXScale(this.xDomain, this.dims.width);
     };
-    AreaChartComponent.prototype.updateHoveredVertical = function (item) {
+    AreaChartComponent.prototype.updateHoveredVertical = function(item) {
         this.hoveredVertical = item.value;
         this.deactivateAll();
     };
-    AreaChartComponent.prototype.hideCircles = function () {
+    AreaChartComponent.prototype.hideCircles = function() {
         this.hoveredVertical = null;
         this.deactivateAll();
     };
-    AreaChartComponent.prototype.onClick = function (data, series) {
+    AreaChartComponent.prototype.onClick = function(data, series) {
         if (series) {
             data.series = series.name;
         }
         this.select.emit(data);
     };
-    AreaChartComponent.prototype.trackBy = function (index, item) {
+    AreaChartComponent.prototype.trackBy = function(index, item) {
         return item.name;
     };
-    AreaChartComponent.prototype.setColors = function () {
+    AreaChartComponent.prototype.setColors = function() {
         var domain;
         if (this.schemeType === 'ordinal') {
             domain = this.seriesDomain;
-        }
-        else {
+        } else {
             domain = this.yDomain;
         }
         this.colors = new ColorHelper(this.scheme, this.schemeType, domain, this.customColors);
     };
-    AreaChartComponent.prototype.getLegendOptions = function () {
+    AreaChartComponent.prototype.getLegendOptions = function() {
         var opts = {
             scaleType: this.schemeType,
             colors: undefined,
@@ -251,25 +254,24 @@ var AreaChartComponent = /** @class */ (function (_super) {
             opts.domain = this.seriesDomain;
             opts.colors = this.colors;
             opts.title = this.legendTitle;
-        }
-        else {
+        } else {
             opts.domain = this.yDomain;
             opts.colors = this.colors.scale;
         }
         return opts;
     };
-    AreaChartComponent.prototype.updateYAxisWidth = function (_a) {
+    AreaChartComponent.prototype.updateYAxisWidth = function(_a) {
         var width = _a.width;
         this.yAxisWidth = width;
         this.update();
     };
-    AreaChartComponent.prototype.updateXAxisHeight = function (_a) {
+    AreaChartComponent.prototype.updateXAxisHeight = function(_a) {
         var height = _a.height;
         this.xAxisHeight = height;
         this.update();
     };
-    AreaChartComponent.prototype.onActivate = function (item) {
-        var idx = this.activeEntries.findIndex(function (d) {
+    AreaChartComponent.prototype.onActivate = function(item) {
+        var idx = this.activeEntries.findIndex(function(d) {
             return d.name === item.name && d.value === item.value;
         });
         if (idx > -1) {
@@ -278,15 +280,15 @@ var AreaChartComponent = /** @class */ (function (_super) {
         this.activeEntries = [item].concat(this.activeEntries);
         this.activate.emit({ value: item, entries: this.activeEntries });
     };
-    AreaChartComponent.prototype.onDeactivate = function (item) {
-        var idx = this.activeEntries.findIndex(function (d) {
+    AreaChartComponent.prototype.onDeactivate = function(item) {
+        var idx = this.activeEntries.findIndex(function(d) {
             return d.name === item.name && d.value === item.value;
         });
         this.activeEntries.splice(idx, 1);
         this.activeEntries = this.activeEntries.slice();
         this.deactivate.emit({ value: item, entries: this.activeEntries });
     };
-    AreaChartComponent.prototype.deactivateAll = function () {
+    AreaChartComponent.prototype.deactivateAll = function() {
         this.activeEntries = this.activeEntries.slice();
         for (var _i = 0, _a = this.activeEntries; _i < _a.length; _i++) {
             var entry = _a[_i];
