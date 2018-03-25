@@ -14,7 +14,7 @@ export const onlyone = [
 export const single = [
   {
     name: 'Usability',
-    value: 777
+    value: 777777
   },
   {
     name: 'Disable',

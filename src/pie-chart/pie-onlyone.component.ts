@@ -57,7 +57,7 @@ import { formatLabel } from '../common/label.helper';
             x="0"
             y="5"
             text-anchor="middle">
-            {{series.percent.toLocaleString()}}
+            {{series.percent.toLocaleString()}} %
           </svg:text>
           <svg:text *ngIf="i<=0"
             class="label"
@@ -89,7 +89,7 @@ export class PieOnlyOneComponent extends BaseChartComponent {
   series: any[];
   domain: any[];
   colorScale: ColorHelper;
-  margin = [20, 20, 20, 20];
+  margin = [20, 20, 20, 5];
 
   @ContentChild('tooltipTemplate') tooltipTemplate: TemplateRef<any>;
 
@@ -105,6 +105,7 @@ export class PieOnlyOneComponent extends BaseChartComponent {
     this.domain = this.getDomain();
 
     this.data = gridLayout(this.dims, this.results, 150, this.designatedTotal);
+    console.log('---margin 3---' + this.margin[3]);
     this.transform = `translate(${this.margin[3]} , ${this.margin[0]})`;
 
     this.series = this.getSeries();
