@@ -30,7 +30,7 @@ var PieOnlyOneComponent = /** @class */ (function (_super) {
     function PieOnlyOneComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.tooltipDisabled = false;
-        _this.margin = [20, 20, 20, 20];
+        _this.margin = [20, 20, 20, 5];
         return _this;
     }
     PieOnlyOneComponent.prototype.update = function () {
@@ -42,6 +42,7 @@ var PieOnlyOneComponent = /** @class */ (function (_super) {
         });
         this.domain = this.getDomain();
         this.data = gridLayout(this.dims, this.results, 150, this.designatedTotal);
+        console.log('---margin 3---' + this.margin[3]);
         this.transform = "translate(" + this.margin[3] + " , " + this.margin[0] + ")";
         this.series = this.getSeries();
         this.setColors();
@@ -59,6 +60,7 @@ var PieOnlyOneComponent = /** @class */ (function (_super) {
     PieOnlyOneComponent.prototype.getSeries = function () {
         var _this = this;
         var total = this.designatedTotal ? this.designatedTotal : this.getTotal();
+        console.log('---int--');
         return this.data.map(function (d) {
             var baselineLabelHeight = 20;
             var padding = 10;
@@ -77,8 +79,8 @@ var PieOnlyOneComponent = /** @class */ (function (_super) {
                     return _this.colorScale.getColor(label);
                 }
             };
-            var xPos = d.x + (d.width - padding) / 2;
-            var yPos = d.y + (d.height - baselineLabelHeight) / 2;
+            var xPos = (d.x + (d.width - padding) / 2) + _this.transferX;
+            var yPos = (d.y + (d.height - baselineLabelHeight) / 2) + _this.transferY;
             return {
                 transform: "translate(" + xPos + ", " + yPos + ")",
                 colors: colors,

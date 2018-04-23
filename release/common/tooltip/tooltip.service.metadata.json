@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 [{"__symbolic":"module","version":4,"metadata":{"TooltipService":{"__symbolic":"class","extends":{"__symbolic":"reference","module":"./injection-registery.service","name":"InjectionRegistery","line":6,"character":36},"decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Injectable","line":5,"character":1}}],"members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","module":"./injection.service","name":"InjectionService","line":10,"character":39}]}]}}}}]
-=======
-[{"__symbolic":"module","version":4,"metadata":{"TooltipService":{"__symbolic":"class","extends":{"__symbolic":"reference","module":"./injection-registery.service","name":"InjectionRegistery"},"decorators":[{"__symbolic":"call","expression":{"__symbolic":"reference","module":"@angular/core","name":"Injectable"}}],"members":{"__ctor__":[{"__symbolic":"constructor","parameters":[{"__symbolic":"reference","module":"./injection.service","name":"InjectionService"}]}]}}}}]
->>>>>>> b184a3240a7cd9502ffbcfda3a89718fa2d7a66a

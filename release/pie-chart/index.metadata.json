@@ -1,5 +1,1 @@
-<<<<<<< HEAD
 [{"__symbolic":"module","version":4,"metadata":{},"exports":[{"from":"./pie-chart.module"},{"from":"./pie-chart.component"},{"from":"./pie-arc.component"},{"from":"./pie-grid.component"},{"from":"./pie-series.component"},{"from":"./pie-label.component"},{"from":"./pie-series.component"},{"from":"./pie-onlyone.component"}]}]
-=======
-[{"__symbolic":"module","version":4,"metadata":{},"exports":[{"from":"./pie-chart.module"},{"from":"./pie-chart.component"},{"from":"./pie-arc.component"},{"from":"./pie-grid.component"},{"from":"./pie-series.component"},{"from":"./pie-label.component"},{"from":"./pie-series.component"}]}]
->>>>>>> b184a3240a7cd9502ffbcfda3a89718fa2d7a66a

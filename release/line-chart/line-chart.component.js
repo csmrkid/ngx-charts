@@ -1,27 +1,20 @@
-var __extends = (this && this.__extends) || (function() {
+var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] }
-            instanceof Array && function(d, b) { d.__proto__ = b; }) ||
-        function(d, b) { for (var p in b)
-                if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function(d, b) {
+        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
+        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+    return function (d, b) {
         extendStatics(d, b);
-
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var __decorate = (this && this.__decorate) || function(decorators, target, key, desc) {
-    var c = arguments.length,
-        r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc,
-        d;
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else
-        for (var i = decorators.length - 1; i >= 0; i--)
-            if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function(k, v) {
+var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Component, Input, Output, EventEmitter, ViewEncapsulation, HostListener, ChangeDetectionStrategy, ContentChild, TemplateRef } from '@angular/core';
@@ -32,9 +25,8 @@ import { calculateViewDimensions } from '../common/view-dimensions.helper';
 import { ColorHelper } from '../common/color.helper';
 import { BaseChartComponent } from '../common/base-chart.component';
 import { id } from '../utils/id';
-var LineChartComponent = /** @class */ (function(_super) {
+var LineChartComponent = /** @class */ (function (_super) {
     __extends(LineChartComponent, _super);
-
     function LineChartComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.legendTitle = 'Legend';
@@ -54,7 +46,7 @@ var LineChartComponent = /** @class */ (function(_super) {
         _this.timelinePadding = 10;
         return _this;
     }
-    LineChartComponent.prototype.update = function() {
+    LineChartComponent.prototype.update = function () {
         _super.prototype.update.call(this);
         this.dims = calculateViewDimensions({
             width: this.width,
@@ -87,7 +79,7 @@ var LineChartComponent = /** @class */ (function(_super) {
         this.clipPathId = 'clip' + id().toString();
         this.clipPath = "url(#" + this.clipPathId + ")";
     };
-    LineChartComponent.prototype.updateTimeline = function() {
+    LineChartComponent.prototype.updateTimeline = function () {
         if (this.timeline) {
             this.timelineWidth = this.dims.width;
             this.timelineXDomain = this.getXDomain();
@@ -96,7 +88,7 @@ var LineChartComponent = /** @class */ (function(_super) {
             this.timelineTransform = "translate(" + this.dims.xOffset + ", " + -this.margin[2] + ")";
         }
     };
-    LineChartComponent.prototype.getXDomain = function() {
+    LineChartComponent.prototype.getXDomain = function () {
         var values = [];
         for (var _i = 0, _a = this.results; _i < _a.length; _i++) {
             var results = _a[_i];
@@ -110,21 +102,21 @@ var LineChartComponent = /** @class */ (function(_super) {
         this.scaleType = this.getScaleType(values);
         var domain = [];
         if (this.scaleType === 'linear') {
-            values = values.map(function(v) { return Number(v); });
+            values = values.map(function (v) { return Number(v); });
         }
         var min;
         var max;
         if (this.scaleType === 'time' || this.scaleType === 'linear') {
-            min = this.xScaleMin ?
-                this.xScaleMin :
-                Math.min.apply(Math, values);
-            max = this.xScaleMax ?
-                this.xScaleMax :
-                Math.max.apply(Math, values);
+            min = this.xScaleMin
+                ? this.xScaleMin
+                : Math.min.apply(Math, values);
+            max = this.xScaleMax
+                ? this.xScaleMax
+                : Math.max.apply(Math, values);
         }
         if (this.scaleType === 'time') {
             domain = [new Date(min), new Date(max)];
-            this.xSet = values.slice().sort(function(a, b) {
+            this.xSet = values.slice().sort(function (a, b) {
                 var aDate = a.getTime();
                 var bDate = b.getTime();
                 if (aDate > bDate)
@@ -133,17 +125,19 @@ var LineChartComponent = /** @class */ (function(_super) {
                     return -1;
                 return 0;
             });
-        } else if (this.scaleType === 'linear') {
+        }
+        else if (this.scaleType === 'linear') {
             domain = [min, max];
             // Use compare function to sort numbers numerically
-            this.xSet = values.slice().sort(function(a, b) { return (a - b); });
-        } else {
+            this.xSet = values.slice().sort(function (a, b) { return (a - b); });
+        }
+        else {
             domain = values;
             this.xSet = values;
         }
         return domain;
     };
-    LineChartComponent.prototype.getYDomain = function() {
+    LineChartComponent.prototype.getYDomain = function () {
         var domain = [];
         for (var _i = 0, _a = this.results; _i < _a.length; _i++) {
             var results = _a[_i];
@@ -170,31 +164,33 @@ var LineChartComponent = /** @class */ (function(_super) {
         if (!this.autoScale) {
             values.push(0);
         }
-        var min = this.yScaleMin ?
-            this.yScaleMin :
-            Math.min.apply(Math, values);
-        var max = this.yScaleMax ?
-            this.yScaleMax :
-            Math.max.apply(Math, values);
+        var min = this.yScaleMin
+            ? this.yScaleMin
+            : Math.min.apply(Math, values);
+        var max = this.yScaleMax
+            ? this.yScaleMax
+            : Math.max.apply(Math, values);
         return [min, max];
     };
-    LineChartComponent.prototype.getSeriesDomain = function() {
-        return this.results.map(function(d) { return d.name; });
+    LineChartComponent.prototype.getSeriesDomain = function () {
+        return this.results.map(function (d) { return d.name; });
     };
-    LineChartComponent.prototype.getXScale = function(domain, width) {
+    LineChartComponent.prototype.getXScale = function (domain, width) {
         var scale;
         if (this.scaleType === 'time') {
             scale = scaleTime()
                 .range([0, width])
                 .domain(domain);
-        } else if (this.scaleType === 'linear') {
+        }
+        else if (this.scaleType === 'linear') {
             scale = scaleLinear()
                 .range([0, width])
                 .domain(domain);
             if (this.roundDomains) {
                 scale = scale.nice();
             }
-        } else if (this.scaleType === 'ordinal') {
+        }
+        else if (this.scaleType === 'ordinal') {
             scale = scalePoint()
                 .range([0, width])
                 .padding(0.1)
@@ -202,13 +198,13 @@ var LineChartComponent = /** @class */ (function(_super) {
         }
         return scale;
     };
-    LineChartComponent.prototype.getYScale = function(domain, height) {
+    LineChartComponent.prototype.getYScale = function (domain, height) {
         var scale = scaleLinear()
             .range([height, 0])
             .domain(domain);
         return this.roundDomains ? scale.nice() : scale;
     };
-    LineChartComponent.prototype.getScaleType = function(values) {
+    LineChartComponent.prototype.getScaleType = function (values) {
         var date = true;
         var num = true;
         for (var _i = 0, values_1 = values; _i < values_1.length; _i++) {
@@ -226,44 +222,45 @@ var LineChartComponent = /** @class */ (function(_super) {
             return 'linear';
         return 'ordinal';
     };
-    LineChartComponent.prototype.isDate = function(value) {
+    LineChartComponent.prototype.isDate = function (value) {
         if (value instanceof Date) {
             return true;
         }
         return false;
     };
-    LineChartComponent.prototype.updateDomain = function(domain) {
+    LineChartComponent.prototype.updateDomain = function (domain) {
         this.filteredDomain = domain;
         this.xDomain = this.filteredDomain;
         this.xScale = this.getXScale(this.xDomain, this.dims.width);
     };
-    LineChartComponent.prototype.updateHoveredVertical = function(item) {
+    LineChartComponent.prototype.updateHoveredVertical = function (item) {
         this.hoveredVertical = item.value;
         this.deactivateAll();
     };
-    LineChartComponent.prototype.hideCircles = function() {
+    LineChartComponent.prototype.hideCircles = function () {
         this.hoveredVertical = null;
         this.deactivateAll();
     };
-    LineChartComponent.prototype.onClick = function(data, series) {
+    LineChartComponent.prototype.onClick = function (data, series) {
         if (series) {
             data.series = series.name;
         }
         this.select.emit(data);
     };
-    LineChartComponent.prototype.trackBy = function(index, item) {
+    LineChartComponent.prototype.trackBy = function (index, item) {
         return item.name;
     };
-    LineChartComponent.prototype.setColors = function() {
+    LineChartComponent.prototype.setColors = function () {
         var domain;
         if (this.schemeType === 'ordinal') {
             domain = this.seriesDomain;
-        } else {
+        }
+        else {
             domain = this.yDomain;
         }
         this.colors = new ColorHelper(this.scheme, this.schemeType, domain, this.customColors);
     };
-    LineChartComponent.prototype.getLegendOptions = function() {
+    LineChartComponent.prototype.getLegendOptions = function () {
         var opts = {
             scaleType: this.schemeType,
             colors: undefined,
@@ -274,25 +271,26 @@ var LineChartComponent = /** @class */ (function(_super) {
             opts.domain = this.seriesDomain;
             opts.colors = this.colors;
             opts.title = this.legendTitle;
-        } else {
+        }
+        else {
             opts.domain = this.yDomain;
             opts.colors = this.colors.scale;
         }
         return opts;
     };
-    LineChartComponent.prototype.updateYAxisWidth = function(_a) {
+    LineChartComponent.prototype.updateYAxisWidth = function (_a) {
         var width = _a.width;
         this.yAxisWidth = width;
         this.update();
     };
-    LineChartComponent.prototype.updateXAxisHeight = function(_a) {
+    LineChartComponent.prototype.updateXAxisHeight = function (_a) {
         var height = _a.height;
         this.xAxisHeight = height;
         this.update();
     };
-    LineChartComponent.prototype.onActivate = function(item) {
+    LineChartComponent.prototype.onActivate = function (item) {
         this.deactivateAll();
-        var idx = this.activeEntries.findIndex(function(d) {
+        var idx = this.activeEntries.findIndex(function (d) {
             return d.name === item.name && d.value === item.value;
         });
         if (idx > -1) {
@@ -301,15 +299,15 @@ var LineChartComponent = /** @class */ (function(_super) {
         this.activeEntries = [item];
         this.activate.emit({ value: item, entries: this.activeEntries });
     };
-    LineChartComponent.prototype.onDeactivate = function(item) {
-        var idx = this.activeEntries.findIndex(function(d) {
+    LineChartComponent.prototype.onDeactivate = function (item) {
+        var idx = this.activeEntries.findIndex(function (d) {
             return d.name === item.name && d.value === item.value;
         });
         this.activeEntries.splice(idx, 1);
         this.activeEntries = this.activeEntries.slice();
         this.deactivate.emit({ value: item, entries: this.activeEntries });
     };
-    LineChartComponent.prototype.deactivateAll = function() {
+    LineChartComponent.prototype.deactivateAll = function () {
         this.activeEntries = this.activeEntries.slice();
         for (var _i = 0, _a = this.activeEntries; _i < _a.length; _i++) {
             var entry = _a[_i];
